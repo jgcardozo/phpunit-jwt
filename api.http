@@ -1,0 +1,31 @@
+ @baseUrl = http://localhost:8000/api/
+
+### register or create user into table
+# @name register
+POST {{baseUrl}}auth/register
+Content-Type: application/json
+
+{
+    "name":"zboncak birdie",
+    "email": "zboncak.birdie@example.org",
+    "password": "pass12345678"
+}
+
+### post to login--
+# @name login
+POST {{baseUrl}}auth/login
+Content-Type: application/json
+
+{
+    "email": "zboncak.birdie@example.org",
+    "password": "pass12345678"
+}
+
+###
+
+@accessToken = {{ login.response.body.access_token }}
+
+# @name meprofile
+POST {{baseUrl}}auth/me
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
