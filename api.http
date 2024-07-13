@@ -11,6 +11,7 @@ Content-Type: application/json
     "password": "pass12345678"
 }
 
+
 ### post to login--
 # @name login
 POST {{baseUrl}}auth/login
@@ -25,7 +26,15 @@ Content-Type: application/json
 
 @accessToken = {{ login.response.body.access_token }}
 
+
+### see user profile
 # @name meprofile
 POST {{baseUrl}}auth/me
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### user logout
+# @name logout
+POST {{baseUrl}}auth/logout
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}

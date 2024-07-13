@@ -38,14 +38,13 @@ class AuthController extends Controller
 
     public function me()
     {
-        return response()->json(auth()->refresh());  //(auth()->user());
+        return response()->json(auth()->user()); 
     }
 
 
     public function logout()
     {
         auth()->logout();
-
         return response()->json(['message' => 'Successfully logged out']);
     }
 
