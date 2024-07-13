@@ -9,7 +9,7 @@ class unitarioTest extends TestCase
     /**
      * A basic unit test example.
      */
-    public function test_example(): void
+    public function test_user_activar_cuenta(): void
     {
         $this->assertTrue(true);
     }

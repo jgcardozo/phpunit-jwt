@@ -38,3 +38,13 @@ Authorization: Bearer {{accessToken}}
 POST {{baseUrl}}auth/logout
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
+
+
+### user enable
+# @name userenable
+POST {{baseUrl}}users/activar
+Content-Type: application/json
+
+{
+    "id": 2
+}
