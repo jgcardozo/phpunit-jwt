@@ -13,7 +13,7 @@ class UserTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->baseUrl = "http://localhost/api/"; //
+        $this->baseUrl = env('API_BASEURL');
         //$this->token = \Cache::get('access_token');
     }
 
@@ -21,8 +21,9 @@ class UserTest extends TestCase
     public function test_register_user_new(): void
     {
         // using sanctum
-        //$this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
-        //Artisan::call('migrate:fresh'); // i prefer this instead of refreshDatabase trait.
+        //$this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class); // guard web
+
+        //\Artisan::call('migrate:fresh');
         $name = fake()->name;
         $email = fake()->unique()->safeEmail();
         $password = "pass12345678";
@@ -58,7 +59,7 @@ class UserTest extends TestCase
 
         $response = $this->postJson($this->baseUrl . 'auth/me', [], ['Authorization' => 'Bearer ' . $token]);
         $response->assertStatus(200);
-        //$response->assertJsonStructure(['id', 'name', 'email']);
+        $response->assertJsonStructure(['id', 'name', 'email']);
     }
 
 
@@ -84,9 +85,11 @@ class UserTest extends TestCase
 
     public function test_user_logout(): void
     {
-        $arrHeaders = ["Autorization" => "Bearer " . \Cache::get('access_token')];
+        $arrHeaders = ["Authorization" => "Bearer " . \Cache::get('access_token')];
         $resp = $this->postJson($this->baseUrl . 'auth/logout', [], $arrHeaders);
-        // $resp->assertStatus(200);
+        $resp->assertJson([
+            'message' => 'Successfully logged out'
+        ]);
     }
 
 }//class
